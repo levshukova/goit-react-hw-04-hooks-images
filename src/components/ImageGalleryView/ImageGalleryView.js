@@ -91,7 +91,13 @@ export default class ImageGalleryView extends Component {
     const { status, images, page } = this.state;
 
     if (status === Status.IDLE) {
-      return <img src={idleImage} alt="lets-give-it-a-try"></img>;
+      return (
+        <img
+          src={idleImage}
+          alt="lets-give-it-a-try"
+          style={{ marginTop: 100 }}
+        ></img>
+      );
     }
 
     if (status === Status.PENDING) {
