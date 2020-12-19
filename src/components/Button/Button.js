@@ -10,7 +10,7 @@ function Button({ onClick }) {
   };
 
   return (
-    <button onClick={onClick} className={s.Button} type="button">
+    <button onClick={scroll} className={s.Button} type="button">
       Load more
     </button>
   );
