@@ -54,6 +54,12 @@ export default function App() {
       .catch(error => {
         setError(error);
         setStatus(Status.REJECTED);
+      })
+      .finally(data => {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight - 995,
+          behavior: 'smooth',
+        });
       });
   }, [searchQuery, page, error]);
 
