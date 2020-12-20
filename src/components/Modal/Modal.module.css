@@ -12,6 +12,7 @@
 }
 
 .Modal {
+  background-color: #fff;
   max-width: calc(100vw - 100px);
   max-height: calc(100vh - 50px);
 }
