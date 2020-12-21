@@ -7,9 +7,9 @@ import Container from './components/Container';
 import ImageGallery from './components/ImageGallery';
 import Spinner from './components/Loader';
 import Button from './components/Button';
+import ErrorView from './components/ErrorView';
 import imageAPI from './services/apiService';
 import idleImage from './images/the-future-of-search.jpg';
-import errorImage from './images/search_error.png';
 
 const Status = {
   IDLE: 'idle',
@@ -26,15 +26,16 @@ export default function App() {
   const [page, setPage] = useState(1);
 
   const handleFormSubmit = query => {
+    if (query === searchQuery) return;
+
     setSearchQuery(query);
     setImages([]);
     setPage(1);
+    setStatus(Status.PENDING);
   };
 
   useEffect(() => {
-    if (!searchQuery) {
-      return;
-    }
+    if (!searchQuery) return;
 
     setStatus(Status.PENDING);
 
@@ -79,25 +80,13 @@ export default function App() {
         ></img>
       )}
 
+      {status === Status.REJECTED && <ErrorView />}
+
+      {images.length > 0 && <ImageGallery images={images} />}
+
+      {status === Status.RESOLVED && <Button onClick={onClickLoadMore} />}
+
       {status === Status.PENDING && <Spinner />}
-
-      {status === Status.REJECTED && (
-        <img
-          src={errorImage}
-          width="250"
-          alt="nothing-found"
-          style={{ marginTop: 150 }}
-        ></img>
-      )}
-
-      {status === Status.RESOLVED && (
-        <>
-          <ImageGallery images={images} />
-          {images.length > 0 && (
-            <Button onClick={onClickLoadMore} page={page} />
-          )}
-        </>
-      )}
 
       <ToastContainer
         autoClose={3000}
