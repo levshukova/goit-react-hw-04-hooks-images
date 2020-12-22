@@ -42,13 +42,13 @@ export default function App() {
     imageAPI
       .fetchImages(searchQuery, page, error)
       .then(images => {
-        if (images.totalHits === 0) {
+        if (images.length === 0) {
           toast.error(`No images found on ${searchQuery}.`);
           setStatus(Status.REJECTED);
           return;
         }
         setImages(state => {
-          return [...state, ...images.hits];
+          return [...state, ...images];
         });
         setStatus(Status.RESOLVED);
       })
